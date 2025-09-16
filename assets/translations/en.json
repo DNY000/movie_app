@@ -1,0 +1,23 @@
+{
+    "welcomeToMovie": "Welcome To MovieD",
+    "subTitleOnboarding": "The best movie booking app of the century to make your days great",
+    "exploreMovies": "Explore Movies",
+    "findYourFavorites": "Find your favorite genres and titles",
+    "getStarted": "Get Started",
+    "enjoyStreaming": "Start streaming instantly",
+    "continueWithFacebook": "Continue With Facebook",
+    "continueWithGoogle": "Continue With Googole",
+    "continueWithApple": "Continue With Apple",
+    "loginWithPassword": "Login With Password",
+    "don’tHaveAnAccount": " Don’t Have An Account?",
+    "register": "Register",
+    "welcomeBack":"Welcome Back",
+    "loginToYourAccount":"Login To Your Account",
+    "or": "or",
+    "orContinueWith":"or continue with",
+    "forgotPassword": "Forgot Password",
+    "rememberMe":"Remember Me",
+    "titleForgotPassword":"Select which contact details should we use to reset your password.",
+    "senOptDes":"OTP code has been send to",
+    "createNewPassword":"Create New Password"
+}

@@ -1,0 +1,23 @@
+{
+    "welcomeToMovie": "Chào mừng đến với Movie App",
+    "subTitleOnboarding": "Thưởng thức hàng ngàn bộ phim ngay trong tay bạn",
+    "exploreMovies": "Khám phá phim",
+    "findYourFavorites": "Tìm thể loại và tiêu đề bạn yêu thích",
+    "getStarted": "Bắt đầu ngay",
+    "enjoyStreaming": "Xem phim tức thì",
+    "continueWithFacebook": "Đăng nhập bằng Facebook",
+    "continueWithGoogle": "Đăng nhập bằng Google",
+    "continueWithApple": "Đăng nhập bằng Apple",
+    "loginWithPassword": "Đăng nhập bằng mật khẩu",
+    "don’tHaveAnAccount": " Bạn chưa có tài khoản?",
+    "register": "Đăng ký",
+    "welcomeBack": "Chào mừng bạn quay trở lại",
+    "loginToYourAccount": "Đăng nhập tài khoản của bạn",
+    "or":"or",
+    "orContinueWith" :"or continue with",
+    "forgotPassword": "Quên mật khẩu",
+    "rememberMe":"Lưu thông tin",
+    "titleForgotPassword" :"Chọn thông tin liên hệ mà chúng tôi sẽ sử dụng để đặt lại mật khẩu của bạn.",
+    "senOptDes":"Mã xác nhận đã được gửi đến",
+    "createNewPassword":"Tạo mật khẩu mới"
+}
