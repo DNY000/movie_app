@@ -7,14 +7,14 @@ import 'package:loadmore/core/service/biometric_secure.dart';
 import 'package:loadmore/presentation/pages/search/search.dart';
 import 'package:local_auth/local_auth.dart';
 
-class MyAccountScreen extends StatefulWidget {
-  const MyAccountScreen({super.key});
+class BioAccountWidget extends StatefulWidget {
+  const BioAccountWidget({super.key});
 
   @override
-  State<MyAccountScreen> createState() => _MyAccountScreenState();
+  State<BioAccountWidget> createState() => _BioAccountWidgetState();
 }
 
-class _MyAccountScreenState extends State<MyAccountScreen> {
+class _BioAccountWidgetState extends State<BioAccountWidget> {
   final LocalAuthentication auth = LocalAuthentication();
   final _bio = BiometricSecure();
   bool _bioAvailable = false;

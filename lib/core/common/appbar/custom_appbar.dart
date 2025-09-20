@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loadmore/core/config/colors.dart';
 
 //
 class CustomAppBar extends StatelessWidget {
@@ -33,6 +35,7 @@ class CustomArrowBack extends StatelessWidget {
     required this.onPress,
     this.height = 40,
     this.width = 40,
+    this.isFavorite = false,
     this.color = const Color(0xFF333333),
   });
   final VoidCallback onPress;
@@ -40,6 +43,7 @@ class CustomArrowBack extends StatelessWidget {
   final double width;
   final Color color;
   final double padding = 8;
+  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -49,10 +53,16 @@ class CustomArrowBack extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-        child: SvgPicture.asset(
-          'assets/icons/arrow_left.svg',
-          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
+        child:
+            isFavorite
+                ? Icon(Icons.favorite, color: kGreyColor, size: 20.sp)
+                : SvgPicture.asset(
+                  'assets/icons/arrow_left.svg',
+                  colorFilter: const ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
       ),
     );
   }

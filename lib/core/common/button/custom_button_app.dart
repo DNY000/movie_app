@@ -9,8 +9,8 @@ class CustomButtonApp extends StatelessWidget {
     this.radius = 8,
     this.height = 48,
     this.padding = EdgeInsets.zero,
-    this.margin=   EdgeInsets.zero,
-
+    this.margin = EdgeInsets.zero,
+    this.gradient,
   });
   final VoidCallback onPress;
   final Widget child;
@@ -18,7 +18,9 @@ class CustomButtonApp extends StatelessWidget {
   final double radius;
   final double height;
   final EdgeInsets padding;
-  final EdgeInsets  margin ; 
+  final EdgeInsets margin;
+  final LinearGradient? gradient;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -28,6 +30,7 @@ class CustomButtonApp extends StatelessWidget {
         margin: margin,
         height: height,
         decoration: BoxDecoration(
+          gradient: gradient,
           color: backgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(radius)),
         ),

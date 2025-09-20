@@ -3,6 +3,9 @@
 
     <!-- Cho phép app kết nối Internet -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <!-- Cho compatibility với Android cũ hơn -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 
     <!-- Bắt buộc khi dùng WebView trên Android 11+ -->
     <queries>

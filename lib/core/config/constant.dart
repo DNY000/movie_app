@@ -24,4 +24,12 @@ class SvgAssets {
   static const String arrowBack = '$_basePath/arrowback.svg';
 }
 
-
+const List<String> dateOfWeek = [
+  'Mon',
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+  "Sun",
+];

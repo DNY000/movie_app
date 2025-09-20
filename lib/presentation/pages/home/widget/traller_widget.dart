@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:loadmore/core/network/api_client.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-
-
 class TrailerPlayerScreen extends StatefulWidget {
   final String youtubeKey;
 
@@ -22,13 +20,13 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
   void initState() {
     super.initState();
 
-   _controller = YoutubePlayerController(
-  params: const YoutubePlayerParams(
-    showControls: true,
-    showFullscreenButton: true,
-  ),
-)..loadVideoById(videoId: widget.youtubeKey); // Chained load
-// 👈 load video sau khi init
+    _controller = YoutubePlayerController(
+      params: const YoutubePlayerParams(
+        showControls: true,
+        showFullscreenButton: true,
+      ),
+    )..loadVideoById(videoId: widget.youtubeKey); // Chained load
+    // 👈 load video sau khi init
   }
 
   @override
@@ -52,16 +50,14 @@ class _TrailerPlayerScreenState extends State<TrailerPlayerScreen> {
   }
 }
 
-
-
-
 Future<void> playTrailer(int movieId, BuildContext context) async {
   const apiKey = '206c2602f5254a596f8060e767cd97dc';
 
   try {
     final response = await ApiClient.instance.fetchApi(
       method: HttpMethod.get,
-      url: 'https://api.themoviedb.org/3/movie/$movieId/videos?api_key=$apiKey&language=vi-VN',
+      url:
+          'https://api.themoviedb.org/3/movie/$movieId/videos?api_key=$apiKey&language=vi-VN',
     );
 
     final data = jsonDecode(response.body);
@@ -76,20 +72,17 @@ Future<void> playTrailer(int movieId, BuildContext context) async {
       final key = trailer['key'];
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => TrailerPlayerScreen(youtubeKey: key),
-        ),
+        MaterialPageRoute(builder: (_) => TrailerPlayerScreen(youtubeKey: key)),
       );
     } else {
       showDialog(
         context: context,
-        builder: (_) => const AlertDialog(
-          title: Text('Không có trailer'),
-          content: Text('Không tìm thấy trailer YouTube cho phim này.'),
-        ),
+        builder:
+            (_) => const AlertDialog(
+              title: Text('Không có trailer'),
+              content: Text('Không tìm thấy trailer YouTube cho phim này.'),
+            ),
       );
     }
-  } catch (e) {
-    print('❌ Lỗi khi lấy trailer: $e');
-  }
+  } catch (e) {}
 }

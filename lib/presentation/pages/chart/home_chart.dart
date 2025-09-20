@@ -131,14 +131,20 @@ class _HomeChartState extends State<HomeChart> {
                 ],
               ),
             ),
-             CustomLineChart(data: [
-             SalesData(month: 'May',    marketingSales: 600, casesSales: 580),
-  SalesData(month: 'Jun',    marketingSales: 640, casesSales: 660),
-  SalesData(month: 'Jul',    marketingSales: 620, casesSales: 740),
-  SalesData(month: 'Aug',    marketingSales: 680, casesSales: 700), // $27632 ở đây
-  SalesData(month: 'Sep',    marketingSales: 660, casesSales: 660),
-  SalesData(month: 'Oct',    marketingSales: 620, casesSales: 670),
-          ],)
+            CustomLineChart(
+              data: [
+                SalesData(month: 'May', marketingSales: 600, casesSales: 580),
+                SalesData(month: 'Jun', marketingSales: 640, casesSales: 660),
+                SalesData(month: 'Jul', marketingSales: 620, casesSales: 740),
+                SalesData(
+                  month: 'Aug',
+                  marketingSales: 680,
+                  casesSales: 700,
+                ), // $27632 ở đây
+                SalesData(month: 'Sep', marketingSales: 660, casesSales: 660),
+                SalesData(month: 'Oct', marketingSales: 620, casesSales: 670),
+              ],
+            ),
           ],
         ),
       ),
@@ -232,13 +238,11 @@ class CustomContainerChart extends StatelessWidget {
             'Compare to ${amount.toString()} last year',
             style: const TextStyle(color: Colors.black),
           ),
-         
         ],
       ),
     );
   }
 }
-
 
 class CustomLineChart extends StatelessWidget {
   const CustomLineChart({super.key, required this.data});
@@ -248,18 +252,16 @@ class CustomLineChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return SfCartesianChart(
       backgroundColor: Colors.white,
-      title: ChartTitle(text: 'Sales Figures'),
-      legend: Legend(isVisible: true),
+      title: const ChartTitle(text: 'Sales Figures'),
+      legend: const Legend(isVisible: true),
       tooltipBehavior: TooltipBehavior(
         tooltipPosition: TooltipPosition.auto,
         enable: true,
-        textStyle: const TextStyle(
-          color: Colors.white,
-        ),
+        textStyle: const TextStyle(color: Colors.white),
         color: Colors.black87,
       ),
-      primaryXAxis: CategoryAxis(),
-      primaryYAxis: NumericAxis(),
+      primaryXAxis: const CategoryAxis(),
+      primaryYAxis: const NumericAxis(),
       series: [
         LineSeries<SalesData, String>(
           name: 'Marketing Sales',
@@ -279,8 +281,6 @@ class CustomLineChart extends StatelessWidget {
     );
   }
 }
-
-
 
 class SalesData {
   final String month;

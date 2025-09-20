@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 const Color kRedLightColor = Color(0xFFD22F26);
@@ -24,15 +23,18 @@ const LinearGradient kGradient = LinearGradient(
 );
 
 const RadialGradient kGradientApp = RadialGradient(
-  focalRadius:22,
+  focalRadius: 22,
   center: Alignment.center,
-        
-      radius: 1.2,
-      colors: [
-        Color(0xFF4A403A), // Màu sáng hơn ở giữa
-        Color(0xFF21242C), // Màu tối nền chính
-      ],
-      stops: [0.01, 0.85],
-    );
 
-
+  radius: 1.2,
+  colors: [
+    Color(0xFF4A403A), // Màu sáng hơn ở giữa
+    Color(0xFF21242C), // Màu tối nền chính
+  ],
+  stops: [0.01, 0.85],
+);
+const LinearGradient kGradientLinearApp = LinearGradient(
+  colors: [Color(0xFF333333), Color(0xFF21242C)],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+);
