@@ -13,6 +13,10 @@ class NameRouter {
   static const String productDetail = '/product/:id';
   static const String detailMovie = '/detailMovie';
   static const String videoPlayer = '/videoPlayer';
-
+  static const String checkoutDetail = '/checkoutDetail';
+  static const String notification = '/notification';
   static const String seats = '/seats';
+
+  //Account
+  static const String editProfile = '/editProfile';
 }

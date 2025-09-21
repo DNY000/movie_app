@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/core/common/appbar/custom_appbar.dart';
 import 'package:loadmore/core/config/colors.dart';
-import 'package:loadmore/presentation/pages/search/search.dart';
+import 'package:loadmore/presentation/pages/home/widget/choose_enjoy_action_widget.dart';
 import 'package:pinput/pinput.dart';
 
 class CreateNewPinWidget extends StatefulWidget {

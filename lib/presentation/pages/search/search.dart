@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/core/common/appbar/custom_appbar.dart';
+import 'package:loadmore/core/common/card/movie_card_horizontal_widget.dart';
 import 'package:loadmore/core/common/gradient_button.dart';
+import 'package:loadmore/core/common/listview/listview_vertical_widget.dart';
 import 'package:loadmore/core/config/colors.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -12,155 +14,136 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final listChoice = [
-    'Action',
-    'Comedy',
-    'Drama',
-    'Fantasy',
-    'Horror',
-    'Mystery',
-    'Romance',
-    'Thriller',
-    'Western',
-    'Sci-Fi',
-    'Documentary',
-    'Animation',
-    'Adventure',
-    'Crime',
-    'Mystery',
-    'Romance',
-    'Thriller',
-    'Western',
-    'Sci-Fi',
-    'Documentary',
-    'Animation',
-    'Adventure',
-    'Crime',
-  ];
-  List<String> listAnswer = [];
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      setState(() {}); // để cập nhật UI khi có text (ẩn/hiện nút clear)
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(
-          left: 24,
-          top: 56,
-          right: 24,
-          bottom: 24,
-        ),
+        padding: const EdgeInsets.only(left: 24, top: 56, right: 24),
         decoration: const BoxDecoration(gradient: kGradientApp),
-        child: Column(
-          children: [
-            /// Nội dung có thể cuộn
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const CustomAppBar(title: 'chooseYourInterest'),
-                    const SizedBox(height: 24),
-                    const Text(
-                      'titleChoseYourInterest',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ).tr(),
-                    const SizedBox(height: 40),
-                    Image.asset('assets/images/film.png'),
-                    const SizedBox(height: 40),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children:
-                          listChoice
-                              .map(
-                                (e) => GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      listAnswer.contains(e)
-                                          ? listAnswer.remove(e)
-                                          : listAnswer.add(e);
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      gradient:
-                                          listAnswer.contains(e)
-                                              ? kGradient
-                                              : null,
-                                      border:
-                                          listAnswer.contains(e)
-                                              ? null
-                                              : Border.all(
-                                                color: kGreyLightColor,
-                                              ),
-                                      borderRadius: BorderRadius.circular(32),
-                                    ),
-                                    child: Text(
-                                      e,
-                                      style: TextStyle(
-                                        color:
-                                            listAnswer.contains(e)
-                                                ? kDarkTextColor
-                                                : Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                    ),
-                    const SizedBox(height: 40),
-                  ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CustomAppBar(title: 'Search'),
+              const SizedBox(height: 24),
+
+              SearchTextField(
+                controller: _searchController,
+                hintText: "Search movie...",
+                onClear: () => _searchController.clear(),
+                onSearch: () {
+                  debugPrint("Search: ${_searchController.text}");
+                },
+              ),
+
+              const SizedBox(height: 24),
+              ListviewVerticalWidget(
+                itemCount: 20,
+                separatorBuilder: const SizedBox(height: 8),
+                child: MovieCardHorizontal(
+                  onTap: () {},
+                  onPress: () {},
+                  actions: const ['Adventure', 'Fantasy', 'Anime'],
+                  boderRadius: 8,
+                  icon: 'assets/icons/heart.svg',
+                  image: 'assets/images/Welcome.png',
+                  isFavorite: true,
+                  name: 'The Mandalorian',
+                  rating: 9.5,
+                  time: '1hr 30m',
+                  padding: const EdgeInsets.all(8),
                 ),
               ),
-            ),
-            const TwoButtonWidget(),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class TwoButtonWidget extends StatelessWidget {
-  const TwoButtonWidget({super.key});
+/// Custom search box widget
+class SearchTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final VoidCallback? onClear;
+  final VoidCallback? onSearch;
+
+  const SearchTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.onClear,
+    this.onSearch,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: GradientButton(
-            isEnabled: false,
-            onPressed: () {},
-            child: Text(
-              'skip'.tr(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+    return Container(
+      height: 52,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(color: kYellowColor, width: 1),
+      ),
+      child: Row(
+        children: [
+          const SizedBox(width: 12),
+          const Icon(Icons.search, color: Colors.black54, size: 22),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              style: const TextStyle(color: Colors.black87, fontSize: 16),
+              cursorColor: kDarkTextColor,
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: const TextStyle(color: Colors.black45),
+                border: InputBorder.none,
               ),
             ),
           ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: GradientButton(
-            gradient: kGradient,
-            onPressed: () {},
-            child: Text(
-              'continue'.tr(),
-              style: const TextStyle(
-                color: kDarkTextColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+          Row(
+            children: [
+              if (controller.text.isNotEmpty)
+                _buildCircleButton(icon: Icons.close, onTap: onClear),
+              const SizedBox(width: 6),
+              _buildCircleButton(icon: Icons.arrow_forward, onTap: onSearch),
+              const SizedBox(width: 8),
+            ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCircleButton({required IconData icon, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 32,
+        height: 32,
+        decoration: const BoxDecoration(
+          color: kDarkTextColor,
+          shape: BoxShape.circle,
         ),
-      ],
+        child: Icon(icon, color: Colors.white, size: 18),
+      ),
     );
   }
 }

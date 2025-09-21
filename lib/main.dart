@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(390, 844), // Thiết kế theo iPhone 13
+      designSize: const Size(390, 844), // iPhone 13
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
-          title: 'LoadMore App',
+          title: 'Movie App',
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.black,
             useMaterial3: true,
@@ -47,6 +47,13 @@ class MyApp extends StatelessWidget {
             textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
           ),
           routerConfig: AppRouter.router,
+          builder: (context, child) {
+            return GestureDetector(
+              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+              behavior: HitTestBehavior.translucent,
+              child: child!,
+            );
+          },
         );
       },
     );

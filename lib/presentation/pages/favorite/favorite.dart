@@ -1,103 +1,43 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:loadmore/core/common/appbar/custom_appbar.dart';
+import 'package:loadmore/core/common/card/movie_card_horizontal_widget.dart';
+import 'package:loadmore/core/common/listview/listview_vertical_widget.dart';
 import 'package:loadmore/core/config/colors.dart';
-import 'package:loadmore/presentation/pages/search/search.dart';
-import 'package:pinput/pinput.dart';
 
-class FavoriteScreen extends StatefulWidget {
+class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
   @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
-}
-
-class _FavoriteScreenState extends State<FavoriteScreen> {
-  final TextEditingController _pinPutController = TextEditingController();
-  @override
-  void dispose() {
-    _pinPutController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final defaultStylePinPut = PinTheme(
-      textStyle: const TextStyle(fontSize: 20, color: Colors.white),
-      height: 60,
-      width: 80,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Colors.white54),
-      ),
-    );
-    final submittedPinTheme = defaultStylePinPut.copyWith(
-      decoration: defaultStylePinPut.decoration!.copyWith(
-        border: Border.all(color: kYellowColor),
-      ),
-      textStyle: defaultStylePinPut.textStyle?.copyWith(color: kYellowColor),
-    );
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(
-          left: 24,
-          top: 56,
-          right: 24,
-          bottom: 24,
-        ),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 56),
         decoration: const BoxDecoration(gradient: kGradientApp),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                CustomAppBar(title: 'creNewPw'.tr()),
-                const SizedBox(height: 24),
-                const Text(
-                  'titleChoseYourInterest',
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                  textAlign: TextAlign.center,
-                ).tr(),
-                const SizedBox(height: 40),
-                Center(
-                  child: Pinput(
-                    length: 4,
-                    defaultPinTheme: defaultStylePinPut,
-                    submittedPinTheme: submittedPinTheme,
-                    controller: _pinPutController,
-                    focusedPinTheme: submittedPinTheme.copyWith(
-                      decoration: submittedPinTheme.decoration!.copyWith(
-                        border: Border.all(color: Colors.blueAccent, width: 2),
-                      ),
-                    ),
-                    obscureText: false,
-                    // obscuringWidget: Container(
-                    //   width: 14,
-                    //   height: 14,
-                    //   decoration: const BoxDecoration(
-                    //     color: Colors.white,
-                    //     shape: BoxShape.circle,
-                    //   ),
-                    // ),
-                    preFilledWidget: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-
-                    showCursor: true,
-                    onCompleted: (pin) => debugPrint('Completed: $pin'),
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CustomAppBar(title: 'My Favorite'),
+              ListviewVerticalWidget(
+                itemCount: 20,
+                separatorBuilder: const SizedBox(height: 8),
+                child: MovieCardHorizontal(
+                  onTap: () {},
+                  onPress: () {},
+                  actions: const ['Adventure', 'Fantasy', 'Anime'],
+                  boderRadius: 8,
+                  icon: 'assets/icons/heart.svg',
+                  image: 'assets/images/Welcome.png',
+                  isFavorite: true,
+                  name: 'The Mandalorian',
+                  rating: 9.5,
+                  time: '1hr 30m',
+                  padding: const EdgeInsets.all(8),
                 ),
-              ],
-            ),
-            const TwoButtonWidget(),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

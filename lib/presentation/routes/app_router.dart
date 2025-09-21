@@ -1,11 +1,14 @@
 import 'package:go_router/go_router.dart';
 import 'package:loadmore/data/datasources/local/shared_pref.dart';
+import 'package:loadmore/presentation/pages/account/edit_profile.dart';
 import 'package:loadmore/presentation/pages/authentication/screens/login.dart';
 import 'package:loadmore/presentation/pages/home/detail_movie_screen.dart';
 import 'package:loadmore/presentation/pages/home/home.dart';
 import 'package:loadmore/presentation/pages/home/setup_account_screen.dart';
+import 'package:loadmore/presentation/pages/movie/checkout_detail_screen.dart';
 import 'package:loadmore/presentation/pages/movie/seats_screen.dart';
 import 'package:loadmore/presentation/pages/navigator_bar.dart';
+import 'package:loadmore/presentation/pages/notification/notification_screen.dart';
 import 'package:loadmore/presentation/pages/onboarding/onboarding.dart';
 import 'package:loadmore/presentation/pages/splash.dart';
 import 'package:loadmore/presentation/routes/name_router.dart';
@@ -77,6 +80,18 @@ class AppRouter {
       GoRoute(
         path: NameRouter.seats,
         builder: (context, state) => const SeatsScreen(),
+      ),
+      GoRoute(
+        path: NameRouter.checkoutDetail,
+        builder: (context, state) => const CheckoutDetailScreen(),
+      ),
+      GoRoute(
+        path: NameRouter.editProfile,
+        builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: NameRouter.notification,
+        builder: (context, state) => const NotificationScreen(),
       ),
     ],
   );

@@ -358,7 +358,6 @@ class _PageViewCardWidgetState extends State<PageViewCardWidget> {
                 watchNow: () {},
                 isFavorite: () {},
                 onTap: () {
-                  print('Tapped on The Great Adventure');
                   context.push('/detailMovie');
                 },
               ),

@@ -95,8 +95,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 count: data.length,
                 effect: ExpandingDotsEffect(
                   dotHeight: 4.h,
-                  dotWidth: 8.w, // kích thước mặc định của dot
-                  expansionFactor: 2, // dot đang chọn sẽ gấp 3 lần => 36.w
+                  dotWidth: 8.w,
+                  expansionFactor: 2,
                   spacing: 8.w,
                   activeDotColor: Colors.orangeAccent,
                   dotColor: Colors.white54,
@@ -105,7 +105,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
 
-          /// Nút "Bắt đầu" (ở trang cuối)
           Positioned(
             bottom: 30.h,
             left: 0,
