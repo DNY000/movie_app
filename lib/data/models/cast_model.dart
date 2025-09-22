@@ -8,17 +8,12 @@ class CastModel extends CastEntity {
     required super.profilePath,
   });
 
-  factory CastModel.fromJson(Map<String, dynamic> json) => CastModel(
-        id: json['id'],
-        name: json['name'] ?? '',
-        character: json['character'] ?? '',
-        profilePath: json['profile_path'] ?? '',
-      );
-
-  CastEntity toEntity() => CastEntity(
-        id: id,
-        name: name,
-        character: character,
-        profilePath: profilePath,
-      );
+  factory CastModel.fromJson(Map<String, dynamic> json) {
+    return CastModel(
+      id: json['id'],
+      name: json['name'],
+      character: json['character'],
+      profilePath: json['profile_path'] ?? '',
+    );
+  }
 }

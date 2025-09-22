@@ -1,8 +1,12 @@
 import 'package:loadmore/data/datasources/remote/movies_remo_datasource.dart';
+import 'package:loadmore/domain/entities/actor_entity.dart';
+import 'package:loadmore/domain/entities/cast_entity.dart';
+import 'package:loadmore/domain/entities/genre_entity.dart';
+import 'package:loadmore/domain/entities/language_entity.dart';
+import 'package:loadmore/domain/entities/movie_detail_entity.dart';
 import 'package:loadmore/domain/entities/movies_entity.dart';
-import 'package:loadmore/domain/entities/movies_detail_entity.dart';
+import 'package:loadmore/domain/entities/video_entity.dart';
 import 'package:loadmore/domain/repositories/movies_repository.dart';
-
 
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource remoteDataSource;
@@ -11,25 +15,68 @@ class MovieRepositoryImpl implements MovieRepository {
 
   @override
   Future<List<MoviesEntity>> getPopularMovies() async {
-    final models = await remoteDataSource.getPopularMovies();
-    return models.map((e) => e.toEntity()).toList();
+    return await remoteDataSource.getPopularMovies();
   }
 
   @override
   Future<List<MoviesEntity>> getTopRatedMovies() async {
-    final models = await remoteDataSource.getTopRatedMovies();
-    return models.map((e) => e.toEntity()).toList();
+    return await remoteDataSource.getTopRatedMovies();
   }
 
   @override
   Future<List<MoviesEntity>> getUpcomingMovies() async {
-    final models = await remoteDataSource.getUpcomingMovies();
-    return models.map((e) => e.toEntity()).toList();
+    return await remoteDataSource.getUpcomingMovies();
   }
 
   @override
-  Future<MoviesDetailEntity> getMovieDetail(int movieId) async {
-    final model = await remoteDataSource.getMovieDetail(movieId);
-    return model;
+  Future<MovieDetailEntity> getMovieDetail(String movieId) async {
+    return await remoteDataSource.getMovieDetail(movieId);
+  }
+
+  @override
+  Future<List<CastEntity>> getCast(String movieId) async {
+    return await remoteDataSource.getCast(movieId);
+  }
+
+  @override
+  Future<List<VideoEntity>> getVideos(String movieId) async {
+    return await remoteDataSource.getVideos(movieId);
+  }
+
+  @override
+  Future<List<GenreEntity>> getGenres() async {
+    return await remoteDataSource.getGenres();
+  }
+
+  @override
+  Future<List<LanguageEntity>> getLanguages() async {
+    return await remoteDataSource.getLanguages();
+  }
+
+  @override
+  Future<List<ActorEntity>> getActors(String movieId) async {
+    return await remoteDataSource.getActors(movieId);
+  }
+
+  @override
+  Future<List<MoviesEntity>> searchMovies(String query) async {
+    return await remoteDataSource.searchMovies(query);
+  }
+
+  @override
+  Future<List<MoviesEntity>> filterMovies({
+    List<String>? genreIds,
+    List<String>? languageIds,
+    DateTime? fromDate,
+    DateTime? toDate,
+    double? minRating,
+  }) async {
+    return await remoteDataSource.filterMovies(
+      genreIds: genreIds,
+      languageIds: languageIds,
+      fromDate: fromDate,
+      toDate: toDate,
+      minRating: minRating,
+    );
   }
 }
