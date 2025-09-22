@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:loadmore/core/common/appbar/custom_appbar.dart';
 import 'package:loadmore/core/common/card/movie_card_horizontal_widget.dart';
 import 'package:loadmore/core/common/listview/listview_vertical_widget.dart';

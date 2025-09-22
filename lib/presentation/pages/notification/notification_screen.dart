@@ -10,32 +10,45 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> icons = [
+      "assets/icons/Alarm.svg",
+      "assets/icons/Gift.svg",
+      "assets/icons/SealCheck.svg",
+    ];
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 56),
         decoration: const BoxDecoration(gradient: kGradientApp),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CustomAppBar(title: 'Notification'),
-              SizedBox(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 20,
-                  itemBuilder:
-                      (context, index) => ContainerNotificationWidget(
-                        title: 'Cashback',
-                        content:
-                            'You’ve got an cashback for the past ticket booking.',
-                        isRead: true,
-                        time: TimeFormatter.formatTimeLine(DateTime.now()),
-                        icon: 'assets/icons/arrow_left.svg',
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const CustomAppBar(title: 'Notification'),
+                    SizedBox(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder:
+                            (context, index) => ContainerNotificationWidget(
+                              title: 'Cashback',
+                              content:
+                                  'You’ve got an cashback for the past ticket booking.',
+                              isRead: true,
+                              time: TimeFormatter.formatTimeLine(
+                                DateTime.now(),
+                              ),
+                              icon: icons[index],
+                            ),
                       ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

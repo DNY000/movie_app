@@ -5,7 +5,6 @@ import 'package:loadmore/core/common/appbar/custom_appbar.dart';
 import 'package:loadmore/core/config/colors.dart';
 import 'package:loadmore/core/service/biometric_secure.dart';
 import 'package:loadmore/presentation/pages/home/widget/choose_enjoy_action_widget.dart';
-import 'package:loadmore/presentation/pages/search/search.dart';
 import 'package:local_auth/local_auth.dart';
 
 class BioAccountWidget extends StatefulWidget {

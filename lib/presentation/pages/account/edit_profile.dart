@@ -18,27 +18,58 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  // luôn đồng bộ với list items
   final List<String> genders = ['Male', 'Female', 'Other'];
   String? selectedGender;
 
   @override
   void initState() {
     super.initState();
-    selectedGender = genders.first; // gán mặc định "Male"
+    selectedGender = genders.first;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // precache image ở đây (không được gọi trong initState vì lỗi MediaQuery)
+    precacheImage(const AssetImage('assets/images/Welcome.png'), context);
+  }
+
+  @override
+  void dispose() {
+    _nameConntroller.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(left: 24, right: 24, top: 48),
-        decoration: const BoxDecoration(gradient: kGradientApp),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+
+      body: Stack(
+        children: [
+          const Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(gradient: kGradientApp),
+            ),
+          ),
+
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(
+                24,
+                24,
+                24,
+                24 +
+                    MediaQuery.of(
+                      context,
+                    ).viewInsets.bottom, // đẩy UI lên khi bàn phím mở
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -50,51 +81,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     const SizedBox(height: 32),
 
-                    Text(
-                      'FULL NAME',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: kGreyColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
+                    /// Full name
+                    _buildLabel("FULL NAME"),
                     CustomTextField(
                       controller: _nameConntroller,
                       hintText: 'full name',
                     ),
                     const SizedBox(height: 20),
 
-                    Text(
-                      'EMAIL',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: kGreyColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
+                    /// Email
+                    _buildLabel("EMAIL"),
                     CustomTextField(
                       controller: _emailController,
                       hintText: 'example@gmail.com',
                     ),
                     const SizedBox(height: 20),
 
+                    /// Phone + Gender
                     Row(
                       children: [
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'PHONE',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: kGreyColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
+                              _buildLabel("PHONE"),
                               CustomTextField(
                                 controller: _phoneController,
                                 hintText: '+84',
@@ -103,106 +113,102 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                         ),
                         const SizedBox(width: 20),
+
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'GENDER',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: kGreyColor,
-                                  fontWeight: FontWeight.w500,
+                              _buildLabel("GENDER"),
+                              Container(
+                                height: 56,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              CustomDropdown(
-                                items: genders,
-                                value: selectedGender,
-                                onChanged: (val) {
-                                  setState(() {
-                                    selectedGender = val;
-                                  });
-                                },
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: kGreyColor.withOpacity(0.2),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton2<String>(
+                                    value:
+                                        genders.contains(selectedGender)
+                                            ? selectedGender
+                                            : null,
+                                    isExpanded: true,
+                                    hint: const Text(
+                                      "Select an option",
+                                      style: TextStyle(color: Colors.white54),
+                                    ),
+                                    dropdownStyleData: DropdownStyleData(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: kGreyDartColor,
+                                      ),
+                                      maxHeight: 250,
+                                    ),
+                                    iconStyleData: const IconStyleData(
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white70,
+                                      ),
+                                    ),
+                                    style: const TextStyle(color: Colors.white),
+                                    items:
+                                        genders
+                                            .map(
+                                              (e) => DropdownMenuItem<String>(
+                                                value: e,
+                                                child: Text(e),
+                                              ),
+                                            )
+                                            .toList(),
+                                    onChanged: (val) {
+                                      setState(() => selectedGender = val);
+                                    },
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ],
                     ),
+
+                    const SizedBox(height: 40),
+
+                    /// Save button
+                    GradientButton(
+                      width: double.infinity,
+                      onPressed: () {},
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                          color: kDarkTextColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: GradientButton(
-                width: double.infinity,
-                onPressed: () {},
-                child: Text(
-                  'Save',
-                  style: TextStyle(
-                    color: kDarkTextColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-}
 
-class CustomDropdown extends StatelessWidget {
-  final String? value;
-  final List<String> items;
-  final ValueChanged<String?> onChanged;
-
-  const CustomDropdown({
-    super.key,
-    required this.value,
-    required this.items,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: kGreyColor.withOpacity(0.2), // giữ nền giống TextField
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton2<String>(
-          value: items.contains(value) ? value : null,
-          isExpanded: true,
-          hint: const Text(
-            "Select an option",
-            style: TextStyle(color: Colors.white54),
-          ),
-          dropdownStyleData: DropdownStyleData(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: kGreyDartColor,
-            ),
-            maxHeight: 250,
-          ),
-          iconStyleData: const IconStyleData(
-            icon: Icon(Icons.arrow_drop_down, color: Colors.white70),
-          ),
-          style: const TextStyle(color: Colors.white),
-          items:
-              items
-                  .map(
-                    (e) => DropdownMenuItem<String>(value: e, child: Text(e)),
-                  )
-                  .toList(),
-          onChanged: onChanged,
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 16.sp,
+          color: kGreyColor,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
