@@ -28,10 +28,10 @@ class MovieRepositoryImpl implements MovieRepository {
     return await remoteDataSource.getUpcomingMovies();
   }
 
-  @override
-  Future<MovieDetailEntity> getMovieDetail(String movieId) async {
-    return await remoteDataSource.getMovieDetail(movieId);
-  }
+  // @override
+  // Future<MovieDetailEntity> getMovieDetail(String movieId) async {
+  //   return await remoteDataSource.getMovieDetail(movieId);
+  // }
 
   @override
   Future<List<CastEntity>> getCast(String movieId) async {
@@ -78,5 +78,11 @@ class MovieRepositoryImpl implements MovieRepository {
       toDate: toDate,
       minRating: minRating,
     );
+  }
+  
+  @override
+  Future<MovieDetailEntity> getMovieDetail(String movieId) {
+    // TODO: implement getMovieDetail
+    throw UnimplementedError();
   }
 }

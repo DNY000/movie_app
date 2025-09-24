@@ -15,7 +15,7 @@ abstract class MovieRemoteDataSource {
   Future<List<MoviesModel>> getUpcomingMovies();
   
   // Movie details
-  Future<MovieDetailModel> getMovieDetail(String movieId);
+  //Future<MovieDetailModel> getMovieDetail(String movieId);
   Future<List<CastModel>> getCast(String movieId);
   Future<List<VideoModel>> getVideos(String movieId);
   
@@ -65,16 +65,16 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   @override
   Future<List<MoviesModel>> getUpcomingMovies() => _getMovieList('upcoming');
 
-  @override
-  Future<MovieDetailModel> getMovieDetail(String movieId) async {
-    final response = await apiClient.fetchApi(
-      method: HttpMethod.get,
-      url:
-          '$baseUrl/movie/$movieId?api_key=$apiKey&language=en-US&append_to_response=videos,credits,recommendations',
-    );
+  // @override
+  // Future<MovieDetailModel> getMovieDetail(String movieId) async {
+  //   // final response = await apiClient.fetchApi(
+  //   //   method: HttpMethod.get,
+  //   //   url:
+  //   //       '$baseUrl/movie/$movieId?api_key=$apiKey&language=en-US&append_to_response=videos,credits,recommendations',
+  //   // );
 
-    return MovieDetailModel.fromJson(jsonDecode(response.body));
-  }
+  //   // return MovieDetailModel.fromJson(jsonDecode(response.body));
+  // }
 
   @override
   Future<List<CastModel>> getCast(String movieId) async {
