@@ -79,7 +79,7 @@ class MovieRepositoryImpl implements MovieRepository {
       minRating: minRating,
     );
   }
-  
+
   @override
   Future<MovieDetailEntity> getMovieDetail(String movieId) {
     // TODO: implement getMovieDetail
